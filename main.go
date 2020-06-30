@@ -1,20 +1,23 @@
 package main
-
-import (
-	"fmt"
-	"net/http"
-	"github.com/gorilla/mux"
-)
-
+import "github.com/gin-gonic/gin"
+import "net/http"
 func main() {
+	router := gin.Default()
 
-	r := mux.NewRouter()
-	r.HandleFunc("/", rootHandler)
-	fmt.Println("Listening on : 9000")
-	http.ListenAndServe(":9000", r)
-}
+	// This handler will match /user/john but will not match /user/ or /user
+	router.GET("/user/:name", func(c *gin.Context) {
+		name := c.Param("name")
+		c.String(http.StatusOK, "Hello %s", name)
+	})
 
-func rootHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Docker test server running!")
+	// However, this one will match /user/john/ and also /user/john/send
+	// If no other routers match /user/john, it will redirect to /user/john/
+	router.GET("/user/:name/*action", func(c *gin.Context) {
+		name := c.Param("name")
+		action := c.Param("action")
+		message := name + " is " + action
+		c.String(http.StatusOK, message)
+	})
 
+	router.Run(":8080")
 }

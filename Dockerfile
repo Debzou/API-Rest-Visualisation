@@ -1,7 +1,5 @@
 # Version 
 FROM golang:latest 
-ENV GO111MODULE=on
-# creating a folder inside the docker
 RUN mkdir /app 
 # Add fill and folder inside the docker
 ADD . /app/ 
