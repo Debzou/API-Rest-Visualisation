@@ -11,5 +11,5 @@ func main(){
 	// // This handler will match /user/john but will not match /user/ or /user
 	// router.GET("/", controllers.wellcome())
 	// router.Run(":8080")
-	controllers.wellcome()
+	controllers.welcome()
 }
