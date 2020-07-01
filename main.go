@@ -3,7 +3,7 @@ package main
 import( 
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"github.com/Debzou/REST-API-GO/internal/controllers"
+	"github.com/Debzou/REST-API-GO/main/internal/controllers"
 )
 
 func main(){
