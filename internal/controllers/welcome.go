@@ -2,6 +2,6 @@ package controllers
 
 import "fmt"
 
-func welcome() {
+func Welcome() {
 	fmt.Println("Welcome")
 }
