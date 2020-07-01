@@ -2,7 +2,7 @@ package main
 import( 
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"github.com/Debzou/REST-API-GO"
+	"github.com/Debzou/REST-API-GO/controllers"
 )
 func main(){
 	router := gin.Default()
