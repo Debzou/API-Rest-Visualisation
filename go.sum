@@ -1,3 +1,5 @@
+github.com/Debzou/REST-API-GO v0.0.0-20200701132456-60259aff7c6a h1:BeZ/8EITkVXBoV6vs5qrUrAKJNPi+vL8WCH2G3xGVU8=
+github.com/Debzou/REST-API-GO v0.0.0-20200701132456-60259aff7c6a/go.mod h1:nUcpvpoAZ3x5Oa1bOJZViuNFDNTFgiQcjjdSta/C2UA=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/gin-contrib/sse v0.1.0 h1:Y/yl/+YNO8GZSjAhjMsSuLt29uWRFHdHYUb5lYOV9qE=
