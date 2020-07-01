@@ -1,4 +1,4 @@
-module main
+module github.com/Debzou/REST-API-GO
 
 go 1.14
 
