@@ -2,7 +2,4 @@ module main
 
 go 1.14
 
-require (
-	github.com/Debzou/REST-API-GO v0.0.0-20200701115803-c6e8159664bf
-	github.com/gin-gonic/gin v1.6.3
-)
+require github.com/gin-gonic/gin v1.6.3
