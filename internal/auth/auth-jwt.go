@@ -8,7 +8,7 @@ import (
 
 
 // the jwt middleware
-var AuthMiddleware, Err := jwt.New(&jwt.GinJWTMiddleware{
+var AuthMiddleware, Err = jwt.New(&jwt.GinJWTMiddleware{
 	Realm:       "test zone",
 	Key:         []byte("secret key"),
 	Timeout:     time.Hour,

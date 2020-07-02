@@ -7,6 +7,7 @@ import (
 	"time"
 	"github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
+	"github.com/Debzou/REST-API-GO/internal/auth"
 )
 
 type login struct {
@@ -42,7 +43,8 @@ func main() {
 	if port == "" {
 		port = "8000"
 	}
-
+	authMiddleware := auth.AuthMiddleware
+	err := auth.Err
 	if err != nil {
 		log.Fatal("JWT Error:" + err.Error())
 	}
