@@ -1,6 +1,7 @@
 package controllers
 
 import(
+	"fmt"
 	"log"
 	"net/http"
 	"github.com/gin-gonic/gin"
@@ -15,5 +16,6 @@ func CreateUser(c *gin.Context) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	c.JSON(http.StatusOK, gin.H{"User": user.Username})
+	fmt.Println(user)
+	c.JSON(http.StatusOK, gin.H{"User": ""})
 }
