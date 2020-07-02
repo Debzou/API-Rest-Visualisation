@@ -8,6 +8,10 @@ import (
 	"github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
 	"github.com/Debzou/REST-API-GO/internal/controllers"
+	"context"
+	"fmt"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type login struct {
@@ -17,6 +21,8 @@ type login struct {
 
 var identityKey = controllers.IdentityKey
 
+// client mongo
+var client *mongo.Client
 
 // User demo
 type User struct {
@@ -26,15 +32,20 @@ type User struct {
 }
 
 func main() {
+	// mongodb
+	fmt.Println("Starting the application...")
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+	client, _ = mongo.Connect(ctx, clientOptions)
+	// gin
 	port := os.Getenv("PORT")
 	r := gin.New()
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
-
+	// if port is not define
 	if port == "" {
 		port = "8000"
 	}
-
 	// the jwt middleware
 	authMiddleware, err := jwt.New(&jwt.GinJWTMiddleware{
 		Realm:       "test zone",
@@ -109,7 +120,7 @@ func main() {
 	if err != nil {
 		log.Fatal("JWT Error:" + err.Error())
 	}
-
+	// route auth
 	r.POST("/login", authMiddleware.LoginHandler)
 
 	r.NoRoute(authMiddleware.MiddlewareFunc(), func(c *gin.Context) {
@@ -123,6 +134,7 @@ func main() {
 	auth.GET("/refresh_token", authMiddleware.RefreshHandler)
 	auth.Use(authMiddleware.MiddlewareFunc())
 	{
+		// PROTECTED ROUTE
 		auth.GET("/hello", controllers.HelloHandler)
 	}
 
