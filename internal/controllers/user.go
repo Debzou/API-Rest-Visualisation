@@ -12,10 +12,5 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 	
-	if json.User != "manu" || json.Password != "123" {
-		c.JSON(http.StatusUnauthorized, gin.H{"status": "unauthorized"})
-		return
-	} 
-	
-	c.JSON(http.StatusOK, gin.H{"User": json})
+	c.JSON(http.StatusOK, gin.H{"User": json.Username})
 }
