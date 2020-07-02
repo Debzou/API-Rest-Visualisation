@@ -10,5 +10,5 @@ import(
 
 func CreateUser(c *gin.Context) {
 	todo := models.User{Username: c.PostForm("username")}
-	c.JSON(http.StatusOK, gin.H{"User": ""})
+	c.JSON(http.StatusOK, gin.H{"User": todo.Username})
 }
