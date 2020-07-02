@@ -7,9 +7,9 @@ import (
 
 
 type User struct {
-	ID       primitive.ObjectID `json:"_id"`
-	Username string             `json:"username"`
-	Password string             `json:"password"`
-	Status   string             `json:"status"`
+	ID       primitive.ObjectID `form:"_id" json:"_id"`
+	Username string             `form:"username" json:"username"`
+	Password string             `form:"password" json:"password"`
+	Status   string             `form:"status" json:"status"`
 }
 
