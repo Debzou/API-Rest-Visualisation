@@ -7,11 +7,7 @@ import(
 )
 
 func CreateUser(c *gin.Context) {
-	body := c.Request.Body
-	value, err := ioutil.ReadAll(body)
-	if err != nil{
-		fmt.Println(err.Error())
-	}
-
-	c.JSON(http.StatusOK, gin.H{"User": string(value)})
+	var user LOGIN
+    c.BindJSON($user)
+	c.JSON(http.StatusOK, gin.H{"User": user.username})
 }
