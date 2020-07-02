@@ -46,6 +46,9 @@ func main() {
 	if port == "" {
 		port = "8000"
 	}
+	// ROUTE NOT PROTECTED
+	r.POST("/signup", func(c *gin.Context
+
 	// the jwt middleware
 	authMiddleware, err := jwt.New(&jwt.GinJWTMiddleware{
 		Realm:       "test zone",
