@@ -6,7 +6,19 @@ import (
 	"github.com/appleboy/gin-jwt/v2"
 )
 
+// User demo
+type User struct {
+	UserName  string
+	FirstName string
+	LastName  string
+}
 
+type login struct {
+	Username string `form:"username" json:"username" binding:"required"`
+	Password string `form:"password" json:"password" binding:"required"`
+}
+
+var identityKey = "id"
 // the jwt middleware
 var AuthMiddleware, Err = jwt.New(&jwt.GinJWTMiddleware{
 	Realm:       "test zone",

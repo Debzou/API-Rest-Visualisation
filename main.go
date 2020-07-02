@@ -10,12 +10,7 @@ import (
 	"github.com/Debzou/REST-API-GO/internal/auth"
 )
 
-type login struct {
-	Username string `form:"username" json:"username" binding:"required"`
-	Password string `form:"password" json:"password" binding:"required"`
-}
 
-var identityKey = "id"
 
 func helloHandler(c *gin.Context) {
 	claims := jwt.ExtractClaims(c)
@@ -27,12 +22,6 @@ func helloHandler(c *gin.Context) {
 	})
 }
 
-// User demo
-type User struct {
-	UserName  string
-	FirstName string
-	LastName  string
-}
 
 func main() {
 	port := os.Getenv("PORT")
