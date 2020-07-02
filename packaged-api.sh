@@ -1,4 +1,5 @@
 #!/bin/bash
+# update dependancy
 
 # remove dependency
 rm -rf vendor
