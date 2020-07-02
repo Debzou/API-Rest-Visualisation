@@ -15,5 +15,5 @@ func CreateUser(c *gin.Context) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	c.JSON(http.StatusOK, gin.H{"User": user.username})
+	c.JSON(http.StatusOK, gin.H{"User": user.Username})
 }
