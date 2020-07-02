@@ -4,6 +4,7 @@ package auth
 import (
 	"time"
 	"github.com/appleboy/gin-jwt/v2"
+	"github.com/gin-gonic/gin"
 )
 
 // User demo
