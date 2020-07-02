@@ -11,7 +11,7 @@ import(
 
 func CreateUser(c *gin.Context) {
 	var user models.User
-	c.BindJSON(&user)
+	err := c.BindJSON(&user)
 	if err != nil {
 		log.Fatal(err)
 	}
