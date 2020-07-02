@@ -47,7 +47,7 @@ func main() {
 		port = "8000"
 	}
 	// ROUTE NOT PROTECTED
-	r.POST("/signup", func(c *gin.Context
+	r.POST("/signup", controllers.CreateUser)
 
 	// the jwt middleware
 	authMiddleware, err := jwt.New(&jwt.GinJWTMiddleware{

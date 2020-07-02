@@ -7,11 +7,11 @@ import(
 )
 
 func CreateUser(c *gin.Context) {
-	var json models.User
-	if err := c.ShouldBindJSON(&json); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
+	body := c.Request.Body
+	value, err := ioutil.ReadAll(body)
+	if err != nil{
+		fmt.Println(err.Error())
 	}
-	
-	c.JSON(http.StatusOK, gin.H{"User": json.Username})
+
+	c.JSON(http.StatusOK, gin.H{"User": string(value)})
 }
