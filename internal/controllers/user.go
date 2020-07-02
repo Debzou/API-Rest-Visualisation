@@ -7,7 +7,7 @@ import(
 )
 
 func CreateUser(c *gin.Context) {
-	var user LOGIN
-    c.BindJSON($user)
+	var user models.User
+    c.BindJSON(user)
 	c.JSON(http.StatusOK, gin.H{"User": user.username})
 }
