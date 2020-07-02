@@ -15,17 +15,8 @@ type login struct {
 	Password string `form:"password" json:"password" binding:"required"`
 }
 
-var identityKey = "id"
+var identityKey = controllers.IdentityKey
 
-func helloHandler(c *gin.Context) {
-	claims := jwt.ExtractClaims(c)
-	user, _ := c.Get(identityKey)
-	c.JSON(200, gin.H{
-		"userID":   claims[identityKey],
-		"userName": user.(*User).UserName,
-		"text":     "Hello World.",
-	})
-}
 
 // User demo
 type User struct {
