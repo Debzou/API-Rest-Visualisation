@@ -1,8 +1,7 @@
 package controllers
 
 import(
-	"fmt"
-	"io/ioutil"
+	"log"
 	"net/http"
 	"github.com/gin-gonic/gin"
 	"github.com/Debzou/REST-API-GO/internal/models"
@@ -12,10 +11,9 @@ import(
 
 func CreateUser(c *gin.Context) {
 	var user models.User
-	// c.BindJSON(user)
-	value, err := ioutil.ReadAll(body)
-	if err != nil{
-		fmt.Println(err.Error())
+	c.BindJSON(&user)
+	if err != nil {
+		log.Fatal(err)
 	}
-	c.JSON(http.StatusOK, gin.H{"User": value.username})
+	c.JSON(http.StatusOK, gin.H{"User": user.username})
 }
