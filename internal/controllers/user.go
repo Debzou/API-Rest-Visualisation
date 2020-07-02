@@ -1,6 +1,7 @@
 package controllers
 
 import(
+	"net/http"
 	"github.com/gin-gonic/gin"
 	"github.com/Debzou/REST-API-GO/internal/models"
 )
