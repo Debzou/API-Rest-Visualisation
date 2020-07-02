@@ -10,9 +10,9 @@ var IdentityKey = "id"
 // After auth, display a message
 func HelloHandler(c *gin.Context) {
 	claims := jwt.ExtractClaims(c)
-	user, _ := c.Get(identityKey)
+	user, _ := c.Get(IdentityKey)
 	c.JSON(200, gin.H{
-		"userID":   claims[identityKey],
+		"userID":   claims[IdentityKey],
 		"text":     "Hello World.",
 	})
 }
