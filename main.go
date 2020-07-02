@@ -7,7 +7,7 @@ import (
 	"time"
 	"github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
-	"github.com/REST-API-GO/internal/controllers"
+	"github.com/Debzou/REST-API-GO/internal/controllers"
 )
 
 type login struct {

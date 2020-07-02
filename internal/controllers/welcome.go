@@ -1,10 +1,11 @@
 package controllers
 
 import (
-	"fmt"	
 	"github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
 )
+
+var IdentityKey = "id"
 
 // After auth, display a message
 func HelloHandler(c *gin.Context) {
