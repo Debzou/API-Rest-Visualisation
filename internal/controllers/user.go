@@ -9,7 +9,7 @@ import(
 
 
 func CreateUser(c *gin.Context) {
-	var user User
+	var user models.User
     c.BindJSON(user)
 	c.JSON(http.StatusOK, gin.H{"User": user.Username})
 }
