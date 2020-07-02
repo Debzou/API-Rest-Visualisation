@@ -14,7 +14,7 @@ func CreateUser(c *gin.Context) {
 	var user models.User
 	// c.BindJSON(user)
 	value, err := ioutil.ReadAll(body)
-	if err =! nil{
+	if err != nil{
 		fmt.Println(err.Error())
 	}
 	c.JSON(http.StatusOK, gin.H{"User": value.username})
