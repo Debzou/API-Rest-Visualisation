@@ -7,7 +7,6 @@ import(
 	"github.com/gin-gonic/gin"
 	"github.com/Debzou/REST-API-GO/internal/models"
 	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/bson"
 )
 
 
