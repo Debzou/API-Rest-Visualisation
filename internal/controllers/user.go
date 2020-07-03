@@ -25,9 +25,6 @@ func CreateUser(c *gin.Context) {
 	Status: c.PostForm("status")}
 	// post data in mongodb
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-	collection.InsertOne(ctx, bson.D{
-		{Key: "title", Value: "The Polyglot Developer Podcast"},
-		{Key: "author", Value: "Nic Raboy"},
-	})
-	c.JSON(http.StatusOK, gin.H{"User": user.Username})
+	collection.InsertOne(ctx, user)
+	c.JSON(http.StatusOK, gin.H{"user": user.Username})
 }

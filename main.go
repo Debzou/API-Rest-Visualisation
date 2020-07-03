@@ -38,7 +38,7 @@ func main() {
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
 	client, _ = mongo.Connect(ctx, clientOptions)
-	defer client.Disconnect(ctx)
+	// defer client.Disconnect(ctx)
 	database := client.Database("RESTapi")
 	controllers.UserCollection(database)
 	// gin
