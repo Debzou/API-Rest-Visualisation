@@ -11,15 +11,20 @@ import(
 )
 
 
+// DATABASE INSTANCE
+var collection *mongo.Collection
 
-func CreateUser(c *gin.Context,database *mongo.Database) {
+func UserCollection(c *mongo.Database) {
+	collection = c.Collection("users")
+}
+
+func CreateUser(c *gin.Context) {
 	// create with models an user
 	user := models.User{Username: c.PostForm("username"),
 	Password: c.PostForm("password"),
 	Status: c.PostForm("status")}
 	// post data in mongodb
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-	collection := database.Collection("podcastsv2")
 	collection.InsertOne(ctx, bson.D{
 		{Key: "title", Value: "The Polyglot Developer Podcast"},
 		{Key: "author", Value: "Nic Raboy"},

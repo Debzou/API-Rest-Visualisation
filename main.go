@@ -40,7 +40,7 @@ func main() {
 	client, _ = mongo.Connect(ctx, clientOptions)
 	defer client.Disconnect(ctx)
 	database := client.Database("RESTapi")
-	
+	controllers.UserCollection(database)
 	// gin
 	port := os.Getenv("PORT")
 	r := gin.New()
