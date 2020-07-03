@@ -6,12 +6,13 @@ import (
 	"os"
 	"time"
 	"github.com/appleboy/gin-jwt/v2"
-	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin"	
 	"github.com/Debzou/REST-API-GO/internal/controllers"
 	"context"
 	"fmt"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 type login struct {
@@ -37,6 +38,9 @@ func main() {
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
 	client, _ = mongo.Connect(ctx, clientOptions)
+	defer client.Disconnect(ctx)
+	database := client.Database("RESTapi")
+	
 	// gin
 	port := os.Getenv("PORT")
 	r := gin.New()
