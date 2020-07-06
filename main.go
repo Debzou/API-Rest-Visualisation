@@ -25,12 +25,6 @@ var identityKey = "id"
 // define client mongo
 var client *mongo.Client
 
-// User demo
-type User struct {
-	UserName  string
-	FirstName string
-	LastName  string
-}
 
 func main() {
 	fmt.Println("Starting the application...")
@@ -63,17 +57,17 @@ func main() {
 		MaxRefresh:  time.Hour,
 		IdentityKey: identityKey,
 		PayloadFunc: func(data interface{}) jwt.MapClaims {
-			if v, ok := data.(*User); ok {
+			if v, ok := data.(*models.TokenInfoUser); ok {
 				return jwt.MapClaims{
-					identityKey: v.UserName,
+					identityKey: v.Status,
 				}
 			}
 			return jwt.MapClaims{}
 		},
 		IdentityHandler: func(c *gin.Context) interface{} {
 			claims := jwt.ExtractClaims(c)
-			return &User{
-				UserName: claims[identityKey].(string),
+			return &models.TokenInfoUser{
+				Status: claims[identityKey].(string),
 			}
 		},
 		Authenticator: func(c *gin.Context) (interface{}, error) {
@@ -85,22 +79,20 @@ func main() {
 			password := loginVals.Password
 
 			if (controllers.AuthUser(username,password)) {
-				return &User{
+				return &models.TokenInfoUser{
+					Status:    "admin",
 					UserName:  username,
-					LastName:  "Bo-Yi",
-					FirstName: "Wu",
+					
 				}, nil
 			}
 
 			return nil, jwt.ErrFailedAuthentication
 		},
 		Authorizator: func(data interface{}, c *gin.Context) bool {
-			v, ok := data.(*User)
-			if ok && v.UserName == "admin" {
-				log.Printf(v.LastName)
+			v, ok := data.(*models.TokenInfoUser)
+			if ok && v.Status == "admin" {
 				return true
-			}
-			
+			}			
 			return false
 		},
 		Unauthorized: func(c *gin.Context, code int, message string) {
