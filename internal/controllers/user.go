@@ -76,8 +76,3 @@ func isExist(username string) bool{
 		return true
 	}
 }
-
-
-func UserStatus() string{
-	return "balaba"
-}
