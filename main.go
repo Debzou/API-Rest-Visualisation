@@ -77,10 +77,10 @@ func main() {
 			}
 			username := loginVals.Username
 			password := loginVals.Password
-
-			if (controllers.AuthUser(username,password)) {
+			condition,status := controllers.AuthUser(username,password)
+			if (condition) {
 				return &models.TokenInfoUser{
-					Status:    "admin",
+					Status:    status,
 					UserName:  username,
 					
 				}, nil

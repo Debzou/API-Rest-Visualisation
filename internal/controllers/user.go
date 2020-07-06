@@ -44,7 +44,8 @@ func CreateUser(c *gin.Context) {
 	}		
 }
 
-func AuthUser(username string,password string) bool{
+// return true if authenticate is true and the status value
+func AuthUser(username string,password string) (bool,string){
 	// init user structure
 	user := models.User{}
 	// define the context
@@ -53,10 +54,10 @@ func AuthUser(username string,password string) bool{
 	err := collection.FindOne(ctx, bson.M{"username": username}).Decode(&user)
 	if err != nil {
 		log.Printf("Error, Reason: %v\n", err)
-		return false
+		return false,"no_status"
 	}
 	// check if password is good
-	return true
+	return true,user.Status
 }
 
 func isExist(username string) bool{
