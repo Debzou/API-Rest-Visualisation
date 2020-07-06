@@ -1,5 +1,7 @@
+// the main package
 package main
 
+// library imported
 import (
 	"log"
 	"net/http"
@@ -8,6 +10,7 @@ import (
 	"github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"	
 	"github.com/Debzou/REST-API-GO/internal/controllers"
+	"github.com/Debzou/REST-API-GO/internal/models"
 	"context"
 	"fmt"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -15,14 +18,11 @@ import (
 
 )
 
-type login struct {
-	Username string `form:"username" json:"username" binding:"required"`
-	Password string `form:"password" json:"password" binding:"required"`
-}
 
-var identityKey = controllers.IdentityKey
+// define the key
+var identityKey = "id"
 
-// client mongo
+// define client mongo
 var client *mongo.Client
 
 // User demo
@@ -75,7 +75,7 @@ func main() {
 			}
 		},
 		Authenticator: func(c *gin.Context) (interface{}, error) {
-			var loginVals login
+			var loginVals models.Login
 			if err := c.ShouldBind(&loginVals); err != nil {
 				return "", jwt.ErrMissingLoginValues
 			}

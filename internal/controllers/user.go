@@ -23,19 +23,28 @@ func UserCollection(c *mongo.Database) {
 }
 
 func CreateUser(c *gin.Context) {
+	// gather username
+	username := c.PostForm("username")
 	// create with models an user
-	user := models.User{Username: c.PostForm("username"),
+	user := models.User{Username: username,
 	Password: c.PostForm("password"),
 	Status: "normal_user"}
-	// post user in mongodb
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-	collection.InsertOne(ctx, user)
-	// display message & httpstatus
-	c.JSON(http.StatusOK, gin.H{"message": "A user was been created with status : " + user.Status})
-	return
+	// check if username exist
+	if (isExist(username)){ 
+		// username already exist
+		c.JSON(http.StatusOK, gin.H{"message": "User already exist"})
+		return
+	}else{
+		// post user in mongodb (username no exist)
+		ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+		collection.InsertOne(ctx, user)
+		// display message & httpstatus
+		c.JSON(http.StatusOK, gin.H{"message": "An user was been created with status : " + user.Status})
+		return
+	}		
 }
 
-func AuthUser(username string,password string){
+func AuthUser(username string,password string) bool{
 	// init user structure
 	user := models.User{}
 	// define the context
@@ -44,10 +53,10 @@ func AuthUser(username string,password string){
 	err := collection.FindOne(ctx, bson.M{"username": username}).Decode(&user)
 	if err != nil {
 		log.Printf("Error, Reason: %v\n", err)
-		return
+		return false
 	}
 	// check if password is good
-	return
+	return true
 }
 
 func isExist(username string) bool{
@@ -59,9 +68,10 @@ func isExist(username string) bool{
 	err := collection.FindOne(ctx,bson.M{"username": username}).Decode(&user)
 	// the user exist
 	if err != nil {
-		return true
+		log.Printf("Error, Reason: %v\n", err)
+		return false
 	// the user not exist
 	}else{
-		return false
+		return true
 	}
 }
