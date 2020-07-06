@@ -18,7 +18,6 @@ import (
 
 )
 
-
 // define the key
 var identityKey = "id"
 
@@ -51,6 +50,7 @@ func main() {
 
 	// the jwt middleware
 	authMiddleware, err := jwt.New(&jwt.GinJWTMiddleware{
+		// jwt option
 		Realm:       "test zone",
 		Key:         []byte("secret key"),
 		Timeout:     time.Hour,
@@ -64,12 +64,15 @@ func main() {
 			}
 			return jwt.MapClaims{}
 		},
+		// define value in jwt
 		IdentityHandler: func(c *gin.Context) interface{} {
 			claims := jwt.ExtractClaims(c)
 			return &models.TokenInfoUser{
 				Status: claims[identityKey].(string),
 			}
 		},
+		// authenticate , give a jwt
+		// token info : status
 		Authenticator: func(c *gin.Context) (interface{}, error) {
 			var loginVals models.Login
 			if err := c.ShouldBind(&loginVals); err != nil {
@@ -88,6 +91,8 @@ func main() {
 
 			return nil, jwt.ErrFailedAuthentication
 		},
+		// authorization 
+		// if the status is not admin, then you won't be able to use the protected routes.
 		Authorizator: func(data interface{}, c *gin.Context) bool {
 			v, ok := data.(*models.TokenInfoUser)
 			if ok && v.Status == "admin" {
@@ -95,6 +100,7 @@ func main() {
 			}			
 			return false
 		},
+		// else
 		Unauthorized: func(c *gin.Context, code int, message string) {
 			c.JSON(code, gin.H{
 				"code":    code,
@@ -103,7 +109,6 @@ func main() {
 		},
 		TokenLookup: "header: Authorization, query: token, cookie: jwt",
 		TokenHeadName: "Bearer",
-		// TimeFunc provides the current time. You can override it to use another time value. This is useful for testing or if your server uses a different time zone than your tokens.
 		TimeFunc: time.Now,
 	})
 
