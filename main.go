@@ -7,15 +7,14 @@ import (
 	"net/http"
 	"os"
 	"time"
-	"github.com/appleboy/gin-jwt/v2"
-	"github.com/gin-gonic/gin"	
-	"github.com/Debzou/REST-API-GO/internal/controllers"
-	"github.com/Debzou/REST-API-GO/internal/models"
 	"context"
 	"fmt"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-
+	"github.com/appleboy/gin-jwt/v2"
+	"github.com/gin-gonic/gin"	
+	"github.com/Debzou/REST-API-GO/internal/controllers"
+	"github.com/Debzou/REST-API-GO/internal/models"
 )
 
 // define the key
@@ -56,6 +55,7 @@ func main() {
 		Timeout:     time.Hour,
 		MaxRefresh:  time.Hour,
 		IdentityKey: identityKey,
+		// define value in jwt
 		PayloadFunc: func(data interface{}) jwt.MapClaims {
 			if v, ok := data.(*models.TokenInfoUser); ok {
 				return jwt.MapClaims{
@@ -64,7 +64,6 @@ func main() {
 			}
 			return jwt.MapClaims{}
 		},
-		// define value in jwt
 		IdentityHandler: func(c *gin.Context) interface{} {
 			claims := jwt.ExtractClaims(c)
 			return &models.TokenInfoUser{

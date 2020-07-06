@@ -11,6 +11,7 @@ import(
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/bson"
 	"log"
+	"strings"
 )
 
 
@@ -23,8 +24,8 @@ func UserCollection(c *mongo.Database) {
 }
 
 func CreateUser(c *gin.Context) {
-	// gather username
-	username := c.PostForm("username")
+	// gather username and transform to lower case
+	username := strings.ToLower(c.PostForm("username"))
 	// create with models an user
 	user := models.User{Username: username,
 	Password: c.PostForm("password"),
@@ -70,6 +71,7 @@ func isExist(username string) bool{
 	// the user exist
 	if err != nil {
 		log.Printf("Error, Reason: %v\n", err)
+		log.Printf("create an user")
 		return false
 	// the user not exist
 	}else{
