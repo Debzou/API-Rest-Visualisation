@@ -1,0 +1,17 @@
+version: '3'
+services:
+  api:
+    container_name: api1.0
+    restart: always
+    build: .
+    ports:
+      - '8080:8080'
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - '27017:27017'
+
+#sudo docker-compose up

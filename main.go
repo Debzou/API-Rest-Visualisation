@@ -29,7 +29,7 @@ func main() {
 	// mongodb context
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	// define the mongo client
-	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+	clientOptions := options.Client().ApplyURI("mongodb://mongo:27017/")
 	client, _ = mongo.Connect(ctx, clientOptions)
 	// defer client.Disconnect(ctx)
 	database := client.Database("RESTapi")
@@ -42,7 +42,7 @@ func main() {
 	r.Use(gin.Recovery())
 	// if port is not define
 	if port == "" {
-		port = "8000"
+		port = "8080"
 	}
 	// ROUTE NOT PROTECTED
 	r.POST("/signup", controllers.CreateUser)

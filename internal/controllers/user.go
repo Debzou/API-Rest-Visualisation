@@ -43,7 +43,7 @@ func CreateUser(c *gin.Context) {
 		ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 		collection.InsertOne(ctx, user)
 		// display message & httpstatus
-		c.JSON(http.StatusOK, gin.H{"message": "An user was been created with status : " + user.Status})
+		c.JSON(http.StatusOK, gin.H{"message": "User is created"})
 		return
 	}		
 }
