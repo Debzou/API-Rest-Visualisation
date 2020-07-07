@@ -12,6 +12,7 @@ import(
 	"go.mongodb.org/mongo-driver/bson"
 	"log"
 	"strings"
+	"golang.org/x/crypto/bcrypt"
 )
 
 
@@ -26,9 +27,11 @@ func UserCollection(c *mongo.Database) {
 func CreateUser(c *gin.Context) {
 	// gather username and transform to lower case
 	username := strings.ToLower(c.PostForm("username"))
+	//hash password
+	hashpassword,_ := HashPassword(c.PostForm("password"))
 	// create with models an user
 	user := models.User{Username: username,
-	Password: c.PostForm("password"),
+	Password: hashpassword,
 	Status: "normal_user"}
 	// check if username exist
 	if (isExist(username)){ 
@@ -51,13 +54,17 @@ func AuthUser(username string,password string) (bool,string){
 	user := models.User{}
 	// define the context
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-	// find the user with username 
+	// check if user exist
 	err := collection.FindOne(ctx, bson.M{"username": username}).Decode(&user)
 	if err != nil {
 		log.Printf("Error, Reason: %v\n", err)
 		return false,"no_status"
 	}
-	// check if password is good
+	// check the password
+	if !(CheckPasswordHash(password, user.Password)) {
+		log.Printf("incorrect password")
+		return false,"incorrect_pass"
+	}
 	return true,user.Status
 }
 
@@ -77,4 +84,16 @@ func isExist(username string) bool{
 	}else{
 		return true
 	}
+}
+
+// hash password
+func HashPassword(password string) (string, error) {
+    bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+    return string(bytes), err
+}
+
+// compare hash password with password
+func CheckPasswordHash(password, hash string) bool {
+    err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+    return err == nil
 }
