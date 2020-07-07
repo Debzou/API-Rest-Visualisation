@@ -1,5 +1,6 @@
 # REST-API-GO
 
+The security of the api is based on Gin-JWT.
 
 ## Start API in container :whale:
 
