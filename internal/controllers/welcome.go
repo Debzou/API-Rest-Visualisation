@@ -13,7 +13,7 @@ var IdentityKey = "id"
 func HelloHandler(c *gin.Context) {
 	claims := jwt.ExtractClaims(c)
 	c.JSON(200, gin.H{
-		"userID":   claims[IdentityKey],
+		"status":   claims[IdentityKey],
 		"text":     "Welcome is api. You are authenticate",
 	})
 }
