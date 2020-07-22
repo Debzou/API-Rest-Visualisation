@@ -32,7 +32,7 @@ func main() {
 	// define the mongo client
 	// URL without docker : mongodb://127.0.0.1:27017
 	// URL with docker : mongodb://mongo:27017/
-	clientOptions := options.Client().ApplyURI("mongodb://mongo:27017/")
+	clientOptions := options.Client().ApplyURI("mongodb://127.0.0.1:27017")
 	client, errMongo := mongo.Connect(ctx, clientOptions)
 	// errMongo
 	if errMongo != nil {
