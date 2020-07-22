@@ -50,8 +50,8 @@ func main() {
 	// the jwt middleware
 	authMiddleware, err := jwt.New(&jwt.GinJWTMiddleware{
 		// jwt option
-		Realm:       "test zone",
-		Key:         []byte("secret key"),
+		Realm:       "DebzouAPI",
+		Key:         []byte("DebzouKeyDebzouCorp"),
 		Timeout:     time.Hour,
 		MaxRefresh:  time.Hour,
 		IdentityKey: identityKey,
