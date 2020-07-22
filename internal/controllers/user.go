@@ -78,13 +78,13 @@ func isExist(username string) bool{
 	// init user structure
 	user := models.User{}
 	// define the context
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()  // releases resources if slowOperation completes before timeout elapses
 	// find an user 
 	err := collection.FindOne(ctx,bson.M{"username": username}).Decode(&user)
 	// the user exist
 	if err != nil {
 		log.Printf("Error, Reason: %v\n", err)
-		log.Printf("create an user")
 		return false
 	// the user not exist
 	}else{
