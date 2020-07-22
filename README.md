@@ -12,7 +12,12 @@ sudo ./launch-api.sh
 ## Start API without docker :space_invader:
 
 Prerequisite : 
-- mongo client/server
+- mongo client/server 
+
+```sh
+docker run -d -p 27017-27019:27017-27019 --name RESTmongo  mongo
+```
+
 - go lastest version
 
 
