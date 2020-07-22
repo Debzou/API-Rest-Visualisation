@@ -15,6 +15,7 @@ import (
 	"github.com/gin-gonic/gin"	
 	"github.com/Debzou/REST-API-GO/internal/controllers"
 	"github.com/Debzou/REST-API-GO/internal/middleware"
+	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
 
@@ -29,7 +30,8 @@ func main() {
 	ctx, cancel:= context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	// define the mongo client
-	clientOptions := options.Client().ApplyURI("mongodb://mongo:27017/")
+	// URL without docker : mongodb://127.0.0.1:27017
+	clientOptions := options.Client().ApplyURI("mongodb://127.0.0.1:27017")
 	client, errMongo := mongo.Connect(ctx, clientOptions)
 	// errMongo
 	if errMongo != nil {
@@ -40,6 +42,11 @@ func main() {
 			panic(errMongo)
 		}
 	}()
+	// Ping the primary
+	if errMongo := client.Ping(ctx, readpref.Primary()); errMongo != nil {
+		log.Fatal("err ping mongo")
+		panic(errMongo)
+	}
 	database := client.Database("RESTapi")
 	// define collection
 	controllers.UserCollection(database)
