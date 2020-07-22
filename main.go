@@ -22,16 +22,26 @@ var identityKey = "id"
 
 // define client mongo
 var client *mongo.Client
+var errMongo *mongo.Client
 
 
 func main() {
 	fmt.Println("Starting the application...")
 	// mongodb context
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel:= context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 	// define the mongo client
 	clientOptions := options.Client().ApplyURI("mongodb://mongo:27017/")
-	client, _ = mongo.Connect(ctx, clientOptions)
-	// defer client.Disconnect(ctx)
+	client, errMongo := mongo.Connect(ctx, clientOptions)
+	// errMongo
+	if errMongo != nil {
+		panic(errMongo)
+	}
+	defer func() {
+		if errMongo = client.Disconnect(ctx); errMongo != nil {
+			panic(errMongo)
+		}
+	}()
 	database := client.Database("RESTapi")
 	// define collection
 	controllers.UserCollection(database)
