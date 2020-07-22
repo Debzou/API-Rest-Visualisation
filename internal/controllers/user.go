@@ -31,7 +31,6 @@ func CreateUser(c *gin.Context) {
 	username := strings.ToLower(json.Username)
 	//hash password
 	hashpassword,_ := HashPassword(json.Password)
-	log.Printf(hashpassword)
 	// create with models an user
 	user := models.User{Username: username,
 		Password: hashpassword,
