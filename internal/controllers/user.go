@@ -5,14 +5,14 @@ package controllers
 import(
 	"time"
 	"context"
-	"net/http"
 	"github.com/gin-gonic/gin"
 	"github.com/Debzou/REST-API-GO/internal/models"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/bson"
 	"log"
-	"strings"
 	"golang.org/x/crypto/bcrypt"
+	"strings"
+	"net/http"
 )
 
 
@@ -25,27 +25,29 @@ func UserCollection(c *mongo.Database) {
 }
 
 func CreateUser(c *gin.Context) {
+	var json models.User
+	c.Bind(&json) // This will infer what binder to use depending on the content-type header.
 	// gather username and transform to lower case
-	username := strings.ToLower(c.PostForm("username"))
+	username := strings.ToLower(json.Username)
 	//hash password
-	hashpassword,_ := HashPassword(c.PostForm("password"))
+	hashpassword,_ := HashPassword(json.Password)
 	// create with models an user
 	user := models.User{Username: username,
-	Password: hashpassword,
-	Status: "normal_user"}
-	// check if username exist
-	if (isExist(username)){ 
-		// username already exist
-		c.JSON(http.StatusOK, gin.H{"message": "User already exist"})
-		return
-	}else{
-		// post user in mongodb (username no exist)
-		ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-		collection.InsertOne(ctx, user)
-		// display message & httpstatus
-		c.JSON(http.StatusOK, gin.H{"message": "User is created"})
-		return
-	}		
+		Password: hashpassword,
+		Status: "normal_user"}
+		// check if username exist
+		if (isExist(username)){ 
+			// username already exist
+			c.JSON(http.StatusOK, gin.H{"message": "User already exist"})
+			return
+		}else{
+			// post user in mongodb (username no exist)
+			ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+			collection.InsertOne(ctx, user)
+			// display message & httpstatus
+			c.JSON(http.StatusOK, gin.H{"message": "User is created"})
+			return
+		}		 
 }
 
 // return true if authenticate is true and the status value

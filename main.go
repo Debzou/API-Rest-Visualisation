@@ -43,15 +43,15 @@ func main() {
 	// if port is not define
 	if port == "" {
 		port = "8080"
-	}
+	} 
 	// ROUTE NOT PROTECTED
 	r.POST("/signup", controllers.CreateUser)
 
 	// the jwt middleware
 	authMiddleware, err := jwt.New(&jwt.GinJWTMiddleware{
 		// jwt option
-		Realm:       "test zone",
-		Key:         []byte("secret key"),
+		Realm:       "DebzouAPI",
+		Key:         []byte("DebzouKeyDebzouCorp"),
 		Timeout:     time.Hour,
 		MaxRefresh:  time.Hour,
 		IdentityKey: identityKey,
@@ -74,9 +74,7 @@ func main() {
 		// token info : status
 		Authenticator: func(c *gin.Context) (interface{}, error) {
 			var loginVals models.Login
-			if err := c.ShouldBind(&loginVals); err != nil {
-				return "", jwt.ErrMissingLoginValues
-			}
+			c.Bind(&loginVals) // This will infer what binder to use depending on the content-type header.
 			username := loginVals.Username
 			password := loginVals.Password
 			condition,status := controllers.AuthUser(username,password)
