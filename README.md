@@ -15,7 +15,7 @@ Prerequisite :
 - mongo client/server 
 
 ```sh
-docker run -d -p 27017:27017 --name RESTmongo  mongo
+docker run -d -p 27017-27019:27017-27019 --name RESTmongo  mongo
 ```
 
 - go lastest version
