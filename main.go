@@ -43,7 +43,7 @@ func main() {
 	// if port is not define
 	if port == "" {
 		port = "8080"
-	}
+	} 
 	// ROUTE NOT PROTECTED
 	r.POST("/signup", controllers.CreateUser)
 
