@@ -51,29 +51,29 @@ func main() {
 	controllers.UserCollection(database)
 	// Start Gin
 	port := os.Getenv("PORT")
-	r := gin.New()
-	r.Use(gin.Logger())
-	r.Use(gin.Recovery())
+	routes := gin.New()
+	routes.Use(gin.Logger())
+	routes.Use(gin.Recovery())
 	// if port is not define
 	if port == "" {
 		port = "8080"
 	} 
 	// ROUTE NOT PROTECTED
-	r.POST("/signup", controllers.CreateUser)
+	routes.POST("/signup", controllers.CreateUser)
 
 	if middleware.Err != nil {
 		log.Fatal("JWT Error:" + middleware.Err.Error())
 	}
 	// route auth
-	r.POST("/login", middleware.AuthMiddleware.LoginHandler)
+	routes.POST("/login", middleware.AuthMiddleware.LoginHandler)
 
-	r.NoRoute(middleware.AuthMiddleware.MiddlewareFunc(), func(c *gin.Context) {
+	routes.NoRoute(middleware.AuthMiddleware.MiddlewareFunc(), func(c *gin.Context) {
 		claims := jwt.ExtractClaims(c)
 		log.Printf("NoRoute claims: %#v\n", claims)
 		c.JSON(404, gin.H{"code": "PAGE_NOT_FOUND", "message": "Page not found"})
 	})
 
-	auth := r.Group("/auth")
+	auth := routes.Group("/auth")
 	// Refresh time can be longer than token timeout
 	auth.GET("/refresh_token", middleware.AuthMiddleware.RefreshHandler)
 	auth.Use(middleware.AuthMiddleware.MiddlewareFunc())
@@ -82,7 +82,7 @@ func main() {
 		auth.GET("/hello", controllers.HelloHandler)
 	}
 
-	if err := http.ListenAndServe(":"+port, r); err != nil {
+	if err := http.ListenAndServe(":"+port, routes); err != nil {
 		log.Fatal(err)
 	}
 }
