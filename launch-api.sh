@@ -1,5 +1,7 @@
 #!/bin/bash
-docker rmi api-rest_api --force
+
+#service mongodb stop (if err --> Cannot start service mongo)
+docker-compose down
 chmod +x ./packaged-api.sh
 ./packaged-api.sh
-docker-compose up
+docker-compose up --build

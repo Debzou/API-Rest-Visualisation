@@ -25,12 +25,14 @@ var errMongo *mongo.Client
 
 
 func main() {
-	fmt.Println("Starting the application ...")
+	fmt.Println("Starting the application ...<3")
 	// mongodb context
 	ctx, cancel:= context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	// define the mongo client
-	clientOptions := options.Client().ApplyURI("mongodb://127.0.0.1:27017")
+	// without docker you must be use this url --> mongodb://127.0.0.1:27017
+	// with docker you must be use this url --> mongodb://mongo:27017/
+	clientOptions := options.Client().ApplyURI("mongodb://mongo:27017/")
 	client, errMongo := mongo.Connect(ctx, clientOptions)
 	// errMongo
 	if errMongo != nil {
