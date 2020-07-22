@@ -29,4 +29,3 @@ sudo chmod +x ./packaged-api.sh
 sudo ./packaged-api.sh
 ```
 
-

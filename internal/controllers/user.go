@@ -30,7 +30,10 @@ func CreateUser(c *gin.Context) {
 	// gather username and transform to lower case
 	username := strings.ToLower(json.Username)
 	//hash password
-	hashpassword,_ := HashPassword(json.Password)
+	hashpassword, err := HashPassword(json.Password)
+	if err != nil {
+		log.Printf("Error, Reason: %v\n", err)
+	}
 	// create with models an user
 	user := models.User{Username: username,
 		Password: hashpassword,
@@ -55,7 +58,8 @@ func AuthUser(username string,password string) (bool,string){
 	// init user structure
 	user := models.User{}
 	// define the context
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel:= context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()  // releases resources if slowOperation completes before timeout elapses
 	// check if user exist
 	err := collection.FindOne(ctx, bson.M{"username": username}).Decode(&user)
 	if err != nil {
