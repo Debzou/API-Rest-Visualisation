@@ -25,7 +25,7 @@ var errMongo *mongo.Client
 
 
 func main() {
-	fmt.Println("Starting the application <3...")
+	fmt.Println("Starting the application ...")
 	// mongodb context
 	ctx, cancel:= context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
