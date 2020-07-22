@@ -20,6 +20,7 @@ docker run -d -p 27017-27019:27017-27019 --name RESTmongo  mongo
 
 - go lastest version
 
+change url mongodb in main.go 
 
 ```sh
 go mod init github.com/Debzou/REST-API-GO
