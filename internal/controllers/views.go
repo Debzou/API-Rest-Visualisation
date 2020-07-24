@@ -12,3 +12,4 @@ func Getindex(c *gin.Context) {
 	"title": "Main website",
 	})
 }
+
