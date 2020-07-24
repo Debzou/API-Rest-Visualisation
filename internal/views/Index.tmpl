@@ -1,0 +1,14 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="/static/styles/index.css">
+	</head>	
+	{{if (eq .Page "Home")}}
+		{{template "Home"}}
+	{{else if (eq .Page "GeoVis")}}
+		{{template "GeoVis"}}	
+	{{else}}
+		Something is wrong ?!
+	{{end}}
+	{{template "Footer"}}
+</html>

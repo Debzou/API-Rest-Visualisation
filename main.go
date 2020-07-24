@@ -16,6 +16,7 @@ import (
 	"github.com/Debzou/REST-API-GO/internal/controllers"
 	"github.com/Debzou/REST-API-GO/internal/middleware"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
+
 )
 
 
@@ -32,7 +33,7 @@ func main() {
 	// define the mongo client
 	// without docker you must be use this url --> mongodb://127.0.0.1:27017
 	// with docker you must be use this url --> mongodb://mongo:27017/
-	clientOptions := options.Client().ApplyURI("mongodb://mongo:27017/")
+	clientOptions := options.Client().ApplyURI("mongodb://127.0.0.1:27017")
 	client, errMongo := mongo.Connect(ctx, clientOptions)
 	// errMongo
 	if errMongo != nil {
@@ -57,7 +58,9 @@ func main() {
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
 	// view 
-	router.LoadHTMLGlob("internal/views/*")
+	router.LoadHTMLGlob("internal/views/*.tmpl")
+	// servers other static files
+	router.Static("/static", "./static")
 	// if port is not define
 	if port == "" {
 		port = "8080"
@@ -65,6 +68,7 @@ func main() {
 	// ROUTE NOT PROTECTED
 	router.POST("/signup", controllers.CreateUser)
 	router.GET("/datavis/index",controllers.Getindex)
+	router.GET("/datavis/geovis",controllers.GetGeoVis)
 	if middleware.Err != nil {
 		log.Fatal("JWT Error:" + middleware.Err.Error())
 	}

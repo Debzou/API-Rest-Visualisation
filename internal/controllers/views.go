@@ -8,7 +8,13 @@ import(
 )
 
 func Getindex(c *gin.Context) {
-	c.HTML(http.StatusOK, "index.tmpl", gin.H{
-	"title": "Main website",
+	c.HTML(http.StatusOK, "Index.tmpl", gin.H{
+	"Page": "Home",
+	})
+}
+
+func GetGeoVis(c *gin.Context) {
+	c.HTML(http.StatusOK, "Index.tmpl", gin.H{
+	"Page": "GeoVis",
 	})
 }
