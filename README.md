@@ -5,8 +5,8 @@ The security of the api is based on Gin-JWT.
 ## Start API in container :whale:
 
 ```
-sudo chmod +x ./launch-api.sh
-sudo ./launch-api.sh
+sudo chmod +x ./install.sh
+sudo ./install.sh
 ```
 
 ## Start API without docker :space_invader:
