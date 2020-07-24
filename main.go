@@ -68,6 +68,7 @@ func main() {
 	// ROUTE NOT PROTECTED
 	router.POST("/signup", controllers.CreateUser)
 	router.GET("/datavis/index",controllers.Getindex)
+	router.GET("/datavis/geovis",controllers.GetGeoVis)
 	if middleware.Err != nil {
 		log.Fatal("JWT Error:" + middleware.Err.Error())
 	}
