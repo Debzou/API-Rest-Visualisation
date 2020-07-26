@@ -1,14 +1,73 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<!-- bulma css -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+		<!-- static css file -->
 		<link rel="stylesheet" href="/static/styles/index.css">
+		<!-- icone -->
+		<script defer src="https://use.fontawesome.com/releases/v5.10.1/js/all.js"></script>
 	</head>	
-	{{if (eq .Page "Home")}}
-		{{template "Home"}}
-	{{else if (eq .Page "GeoVis")}}
-		{{template "GeoVis"}}	
-	{{else}}
-		Something is wrong ?!
-	{{end}}
-	{{template "Footer"}}
+	<!-- nav bar -->
+	<nav class="navbar is-fixed-top nav">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/datavis/index">
+				<img src="/static/images/logo.png" alt="grandlyon" width="28" height="112">                
+            </a>
+            <div class="navbar-burger burger" data-target="navbarTarget">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div id="navbarTarget" class="navbar-menu" >
+            <div class="navbar-start">
+                <a class="navbar-item navitem" href="/datavis/index">
+                    Home
+                </a>
+                <a class="navbar-item navitem" href="/datavis/geovis">
+                    Geo visualisation
+                </a>
+            </div>            
+        </div>
+    </nav>
+	<body>
+		{{if (eq .Page "Home")}}
+			{{template "Home"}}
+		{{else if (eq .Page "GeoVis")}}
+			{{template "GeoVis"}}	
+		{{else}}
+			Something is wrong ?!
+		{{end}}
+		{{template "Footer"}}
+	
+	</body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Get all "navbar-burger" elements
+        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+            // Add a click event on each of them
+            $navbarBurgers.forEach(el => {
+                el.addEventListener('click', () => {
+                    // Get the target from the "data-target" attribute
+                    const target = el.dataset.target;
+                    const $target = document.getElementById(target);
+                    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                    el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+            // Simulate a click on the burger to close the mobile navbar
+            const $navbarBurgerModes = Array.prototype.slice.call(document.querySelectorAll('.navitem'), 0);
+            $navbarBurgerModes.forEach(el => {
+                el.addEventListener('click', () => {
+                    document.getElementById("navbarBurger").click();
+                });
+            });
+        }
+    });
+	</script>
 </html>
