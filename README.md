@@ -47,4 +47,28 @@ go run main.go
 
 To have the administrator status, you have to log in to mongodb and modify your profile.
 
+# Routes
 
+Static file : css / js 
+```sh
+[GIN-debug] GET    /static/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] HEAD   /static/*filepath         --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+```
+
+API visualisation (view)
+```sh
+[GIN-debug] GET    /datavis/index            --> github.com/Debzou/REST-API-GO/internal/controllers.Getindex (3 handlers)
+[GIN-debug] GET    /datavis/geovis           --> github.com/Debzou/REST-API-GO/internal/controllers.GetGeoVis (3 handlers)
+```
+
+Routes Protected 
+```sh
+[GIN-debug] GET    /auth/refresh_token       --> github.com/appleboy/gin-jwt/v2.(*GinJWTMiddleware).RefreshHandler-fm (3 handlers)
+[GIN-debug] GET    /auth/hello               --> github.com/Debzou/REST-API-GO/internal/controllers.HelloHandler (4 handlers)
+```
+
+Login / Signup 
+```sh
+[GIN-debug] POST   /signup                   --> github.com/Debzou/REST-API-GO/internal/controllers.CreateUser (3 handlers)
+[GIN-debug] POST   /login                    --> github.com/appleboy/gin-jwt/v2.(*GinJWTMiddleware).LoginHandler-fm (3 handlers)
+```
