@@ -37,7 +37,7 @@ sudo chmod +x ./packaged-api.sh
 sudo ./packaged-api.sh
 go run main.go
 ```
-# the status
+# The status
 
  When a user creates an account on the api, the user is automatically in "mormal_user".
  
