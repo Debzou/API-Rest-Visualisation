@@ -12,6 +12,7 @@ sudo ./install.sh
 ```
 
 ## Start API without docker :space_invader:
+change url mongodb in main.go (mongodb://mongo:27017/)
 
 Prerequisite : 
 - mongo client/server 
@@ -21,8 +22,6 @@ docker run -d -p 27017-27019:27017-27019 --name RESTmongo  mongo
 ```
 
 - go lastest version
-
-change url mongodb in main.go (mongodb://mongo:27017/)
 
 ```sh
 go mod init github.com/Debzou/REST-API-GO
