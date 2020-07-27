@@ -12,7 +12,7 @@
 	<nav class="navbar is-fixed-top nav">
         <div class="navbar-brand">
             <a class="navbar-item" href="/datavis/index">
-				<img src="/static/images/logo.png" alt="grandlyon" width="28" height="112">                
+				<i class="fas fa-jedi navitem"></i>              
             </a>
             <div class="navbar-burger burger" data-target="navbarTarget">
                 <span></span>
@@ -31,7 +31,7 @@
             </div>            
         </div>
     </nav>
-	<body>
+	<body id="page-container">
 		{{if (eq .Page "Home")}}
 			{{template "Home"}}
 		{{else if (eq .Page "GeoVis")}}
@@ -39,8 +39,7 @@
 		{{else}}
 			Something is wrong ?!
 		{{end}}
-		{{template "Footer"}}
-	
+		{{template "Footer"}}	
 	</body>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
