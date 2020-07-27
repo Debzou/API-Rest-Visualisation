@@ -49,6 +49,7 @@ To have the administrator status, you have to log in to mongodb and modify your 
 # Routes
 
 The token must be put in (auth / bearer token)
+
 Data must be in json format
 
 Static file : css / js 
