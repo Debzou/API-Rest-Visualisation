@@ -12,6 +12,10 @@ a.navbar-item:hover {
   color: white;
 }
 
+.navbar.is-fixed-top.nav{
+  z-index: 10000;
+}
+
 .navbar-burger {
   color: gainsboro;
 }
@@ -46,3 +50,5 @@ a.navbar-item:hover {
 .fa-github{
   color:#1f3347
 }
+
+#mapid { height: 400px; }
