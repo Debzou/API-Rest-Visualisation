@@ -16,7 +16,6 @@ import (
 	"github.com/Debzou/REST-API-GO/internal/controllers"
 	"github.com/Debzou/REST-API-GO/internal/middleware"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
-
 )
 
 
