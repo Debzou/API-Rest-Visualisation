@@ -28,6 +28,11 @@ crossorigin=""></script>
 
 <!--script map -->
 <script>
+	// consumption data
+	var consumption
+	// marker & layers
+	var markers = [];
+	var markersLayer = new L.LayerGroup(); // NOTE: Layer is created here!
 	// define map & init map
 	var mymap = L.map('mapid').setView([45.7578137, 4.8320114], 12);
 	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -45,19 +50,24 @@ crossorigin=""></script>
 		$("select.consumption").change(function(){
 			let selected = $(this).children("option:selected").val();
 			console.log(selected)
+			// clear marker
+			markersLayer.clearLayers();
 		});
 	});
 	
 	// gather consumption
 	$.get( "/allconsumption", function(data) {
+		consumption = data.data
 		data.data.forEach(function (datum){
 			let circle = L.circle([datum.Latitude,datum.Longitude], {
 			color: 'red',
 			fillColor: '#f03',
 			fillOpacity: 0.5,
 			radius: 500
-			}).addTo(mymap); 
+			}); 
+			markersLayer.addLayer(circle); 
 		})
+		markersLayer.addTo(mymap);
 		console.log(data.data[0]);
 	});
 </script>
