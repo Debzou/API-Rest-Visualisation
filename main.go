@@ -51,6 +51,7 @@ func main() {
 	database := client.Database("RESTapi")
 	// define collection
 	controllers.UserCollection(database)
+	controllers.ConsumptionCollection(database)
 	// Start Gin
 	port := os.Getenv("PORT")
 	router := gin.New()
@@ -87,6 +88,7 @@ func main() {
 	{
 		// PROTECTED ROUTE
 		auth.GET("/hello", controllers.HelloHandler)
+		auth.POST("/consumption",controllers.PostConsumption)
 	}
 
 	if err := http.ListenAndServe(":"+port, router); err != nil {

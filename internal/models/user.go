@@ -18,7 +18,7 @@ type Login struct {
 	Password string `form:"password" json:"password" binding:"required"`
 }
 
-// User demo
+// User token info
 type TokenInfoUser struct {
 	Status    string
 	UserName  string
