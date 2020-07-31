@@ -3,10 +3,8 @@ module github.com/Debzou/REST-API-GO
 go 1.14
 
 require (
-	github.com/GeertJohan/go.rice v1.0.0
 	github.com/appleboy/gin-jwt/v2 v2.6.3
-	github.com/foolin/gin-template v0.0.0-20190415034731-41efedfb393b
 	github.com/gin-gonic/gin v1.6.3
-	go.mongodb.org/mongo-driver v1.3.5
-	golang.org/x/crypto v0.0.0-20200709230013-948cd5f35899
+	go.mongodb.org/mongo-driver v1.4.0
+	golang.org/x/crypto v0.0.0-20200728195943-123391ffb6de
 )

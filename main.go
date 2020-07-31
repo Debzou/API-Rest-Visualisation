@@ -69,6 +69,7 @@ func main() {
 	router.POST("/signup", controllers.CreateUser)
 	router.GET("/datavis/index",controllers.Getindex)
 	router.GET("/datavis/geovis",controllers.GetGeoVis)
+	router.GET("/allconsumption",controllers.GetAllConsumption)
 	if middleware.Err != nil {
 		log.Fatal("JWT Error:" + middleware.Err.Error())
 	}
