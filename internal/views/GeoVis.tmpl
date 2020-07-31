@@ -48,10 +48,26 @@ crossorigin=""></script>
 	// selector 
 	$(document).ready(function(){
 		$("select.consumption").change(function(){
+			// dropdown selector
 			let selected = $(this).children("option:selected").val();
-			console.log(selected)
 			// clear marker
 			markersLayer.clearLayers();
+			// change marker
+			consumption.forEach(function (datum){
+				// define color
+
+				// create circle
+				let circle = L.circle([datum.Latitude,datum.Longitude], {
+					color: 'red',
+					fillColor: '#f03',
+					fillOpacity: 0.5,
+					radius: 200
+				}); 
+			// display marker
+			markersLayer.addLayer(circle); 
+		})
+		markersLayer.addTo(mymap);
+
 		});
 	});
 	
@@ -59,11 +75,11 @@ crossorigin=""></script>
 	$.get( "/allconsumption", function(data) {
 		consumption = data.data
 		data.data.forEach(function (datum){
-			let circle = L.circle([datum.Latitude,datum.Longitude], {
-			color: 'red',
-			fillColor: '#f03',
-			fillOpacity: 0.5,
-			radius: 500
+				let circle = L.circle([datum.Latitude,datum.Longitude], {
+				color: 'red',
+				fillColor: '#f03',
+				fillOpacity: 0.5,
+				radius: 500
 			}); 
 			markersLayer.addLayer(circle); 
 		})
