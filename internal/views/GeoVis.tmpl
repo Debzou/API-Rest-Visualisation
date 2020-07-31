@@ -13,7 +13,14 @@ crossorigin=""></script>
     <div class="container">
         <div class="notification">
             <p>GeoVis</p>
-            <br>
+			<!-- dropdown  -->
+			<label for="consumption">Choose the granularity : </label>
+				<select class="consumption" id="consumption">
+				<option value="AverageAnnualConsumption">Annual</option>
+				<option value="AverageMonthlyConsumption">Monthly</option>
+				<option value="AverageDailyConsumption">Daily</option>
+				</select>
+			<br><br>
             <div id="mapid"></div>
         </div>        
     </div>
@@ -21,6 +28,7 @@ crossorigin=""></script>
 
 <!--script map -->
 <script>
+	// define map & init map
 	var mymap = L.map('mapid').setView([45.7578137, 4.8320114], 12);
 	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 		maxZoom: 18,
@@ -31,5 +39,26 @@ crossorigin=""></script>
 		tileSize: 512,
 		zoomOffset: -1
 	}).addTo(mymap);
+
+	// selector 
+	$(document).ready(function(){
+		$("select.consumption").change(function(){
+			let selected = $(this).children("option:selected").val();
+			console.log(selected)
+		});
+	});
+	
+	// gather consumption
+	$.get( "/allconsumption", function(data) {
+		data.data.forEach(function (datum){
+			let circle = L.circle([datum.Latitude,datum.Longitude], {
+			color: 'red',
+			fillColor: '#f03',
+			fillOpacity: 0.5,
+			radius: 500
+			}).addTo(mymap); 
+		})
+		console.log(data.data[0]);
+	});
 </script>
 {{end}}
