@@ -27,6 +27,7 @@ crossorigin=""></script>
 </section>
 
 <!--script map -->
+<script type="text/javascript" src="/static/js/utils.js"></script>
 <script>
 	// consumption data
 	var consumption
@@ -55,11 +56,12 @@ crossorigin=""></script>
 			// change marker
 			consumption.forEach(function (datum){
 				// define color
-
+				let value = datum[selected]
+				let colorCircle = color(value)
 				// create circle
 				let circle = L.circle([datum.Latitude,datum.Longitude], {
-					color: 'red',
-					fillColor: '#f03',
+					color: colorCircle,
+					fillColor: colorCircle,
 					fillOpacity: 0.5,
 					radius: 200
 				}); 
@@ -75,11 +77,13 @@ crossorigin=""></script>
 	$.get( "/allconsumption", function(data) {
 		consumption = data.data
 		data.data.forEach(function (datum){
-				let circle = L.circle([datum.Latitude,datum.Longitude], {
-				color: 'red',
-				fillColor: '#f03',
+			let value = datum.AverageMonthlyConsumption
+			let colorCircle = color(value)
+			let circle = L.circle([datum.Latitude,datum.Longitude], {
+				color: colorCircle,
+				fillColor: colorCircle,
 				fillOpacity: 0.5,
-				radius: 500
+				radius: 200
 			}); 
 			markersLayer.addLayer(circle); 
 		})
