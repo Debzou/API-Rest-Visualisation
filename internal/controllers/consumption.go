@@ -27,6 +27,6 @@ func PostConsumption(c *gin.Context) {
 	defer cancel()
 	collection2.InsertOne(ctx, json)
 	// display message & httpstatus
-	c.JSON(http.StatusOK, gin.H{"message": "User is created"})
+	c.JSON(http.StatusOK, gin.H{"message": "An user consumption is posted"})
 	return				 
 }
