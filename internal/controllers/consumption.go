@@ -43,14 +43,15 @@ func GetAllConsumption(c *gin.Context) {
 	// find all consumption
 	cursor, err := collection2.Find(ctx, bson.D{})
 	if err != nil {
-		panic(err)
-		
+		c.JSON(http.StatusNoContent, gin.H{"message": "err"})
+		panic(err)		
     } else {
 		for cursor.Next(ctx) {
 			// decode the document
 			if err := cursor.Decode(&consumption); err != nil {
 				log.Fatal(err)
 			}
+			// add in table
 			results =append(results, consumption)
 		}
 		c.JSON(http.StatusOK, gin.H{"data": results})
