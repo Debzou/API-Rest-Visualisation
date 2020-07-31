@@ -13,14 +13,28 @@ crossorigin=""></script>
     <div class="container">
         <div class="notification">
             <p>GeoVis</p>
-            <br>
+			<!-- dropdown  -->
+			<label for="consumption">Choose the granularity : </label>
+				<select class="consumption" id="consumption">
+				<option value="AverageAnnualConsumption">Annual</option>
+				<option value="AverageMonthlyConsumption">Monthly</option>
+				<option value="AverageDailyConsumption">Daily</option>
+				</select>
+			<br><br>
             <div id="mapid"></div>
         </div>        
     </div>
 </section>
 
 <!--script map -->
+<script type="text/javascript" src="/static/js/utils.js"></script>
 <script>
+	// consumption data
+	var consumption
+	// marker & layers
+	var markers = [];
+	var markersLayer = new L.LayerGroup(); // NOTE: Layer is created here!
+	// define map & init map
 	var mymap = L.map('mapid').setView([45.7578137, 4.8320114], 12);
 	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 		maxZoom: 18,
@@ -31,5 +45,52 @@ crossorigin=""></script>
 		tileSize: 512,
 		zoomOffset: -1
 	}).addTo(mymap);
+
+	// selector 
+	$(document).ready(function(){
+		$("select.consumption").change(function(){
+			// dropdown selector
+			let selected = $(this).children("option:selected").val();
+			// clear marker
+			markersLayer.clearLayers();
+			// change marker
+			consumption.forEach(function (datum){
+				// define color
+				let value = datum[selected]
+				let colorCircle = color(value)
+				// create circle
+				let circle = L.circle([datum.Latitude,datum.Longitude], {
+					color: colorCircle,
+					fillColor: colorCircle,
+					fillOpacity: 0.5,
+					radius: 200
+				}); 
+				circle.bindPopup(`<b>${datum.Pseudo}</b><br><p>${selected} : ${datum[selected]}</p>`);
+			// display marker
+			markersLayer.addLayer(circle); 
+		})
+		markersLayer.addTo(mymap);
+
+		});
+	});
+	
+	// gather consumption
+	$.get( "/allconsumption", function(data) {
+		consumption = data.data
+		data.data.forEach(function (datum){
+			let value = datum.AverageMonthlyConsumption
+			let colorCircle = color(value)
+			let circle = L.circle([datum.Latitude,datum.Longitude], {
+				color: colorCircle,
+				fillColor: colorCircle,
+				fillOpacity: 0.5,
+				radius: 200
+			});
+			circle.bindPopup(`<b>${datum.Pseudo}</b><br><p>AverageMonthlyConsumption : ${datum['AverageMonthlyConsumption']}</p>`); 
+			markersLayer.addLayer(circle); 
+		})
+		markersLayer.addTo(mymap);
+		console.log(data.data[0]);
+	});
 </script>
 {{end}}
