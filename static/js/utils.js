@@ -9,7 +9,7 @@ function color(value){
         return 'green';
     }else if((value >= low) && (value <= hight)){
     // value is in the middle
-        return 'white';
+        return 'orange';
     }else{
     // value is hight
         return 'red';
