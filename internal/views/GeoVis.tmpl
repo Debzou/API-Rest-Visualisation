@@ -65,6 +65,7 @@ crossorigin=""></script>
 					fillOpacity: 0.5,
 					radius: 200
 				}); 
+				circle.bindPopup(`<b>${datum.Pseudo}</b><br><p>${selected} : ${datum[selected]}</p>`);
 			// display marker
 			markersLayer.addLayer(circle); 
 		})
@@ -84,7 +85,8 @@ crossorigin=""></script>
 				fillColor: colorCircle,
 				fillOpacity: 0.5,
 				radius: 200
-			}); 
+			});
+			circle.bindPopup(`<b>${datum.Pseudo}</b><br><p>AverageMonthlyConsumption : ${datum['AverageMonthlyConsumption']}</p>`); 
 			markersLayer.addLayer(circle); 
 		})
 		markersLayer.addTo(mymap);
