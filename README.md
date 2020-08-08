@@ -2,6 +2,8 @@
 
 The security of the api is based on Gin-JWT.
 
+This API allows the visualization of energy consumption on a map
+
 # Launch
 
 ## Start API in container :whale:
