@@ -80,3 +80,61 @@ Login / Signup
 [GIN-debug] POST   /signup                   --> github.com/Debzou/REST-API-GO/internal/controllers.CreateUser (3 handlers)
 [GIN-debug] POST   /login                    --> github.com/appleboy/gin-jwt/v2.(*GinJWTMiddleware).LoginHandler-fm (3 handlers)
 ```
+## Exemple POST http
+
+### POST /login
+
+```http
+POST /login HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "password":"adminAAAaakkkk",
+    "username":"admin55kkklll"
+}
+```
+
+Using Curl
+
+```sh
+curl --location --request POST 'localhost:8080/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "password":"adminAAAaakkkk",
+    "username":"admin55kkklll"
+}'
+```
+
+### POST /auth/consumption
+
+```http
+POST /auth/consumption HTTP/1.1
+Host: localhost:8080
+Authorization: Bearer yourtoken
+Content-Type: application/json
+
+{
+    "pseudo": "test",
+    "latitude": 55.5,
+    "longitude": 10.6,
+    "averagedailyconsumption": 3000.0,
+    "averagemonthlyconsumption": 500.5,
+    "averageannualconsumption": 600.0
+}
+```
+Using Curl
+
+```sh
+curl --location --request POST 'localhost:8080/auth/consumption' \
+--header 'Authorization: Bearer yourtoken \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "pseudo": "test",
+    "latitude": 55.5,
+    "longitude": 10.6,
+    "averagedailyconsumption": 3000.0,
+    "averagemonthlyconsumption": 500.5,
+    "averageannualconsumption": 600.0
+}'
+```
