@@ -70,6 +70,7 @@ Routes Protected
 ```sh
 [GIN-debug] GET    /auth/refresh_token       --> github.com/appleboy/gin-jwt/v2.(*GinJWTMiddleware).RefreshHandler-fm (3 handlers)
 [GIN-debug] GET    /auth/hello               --> github.com/Debzou/REST-API-GO/internal/controllers.HelloHandler (4 handlers)
+[GIN-debug] POST   /auth/consumption         --> github.com/Debzou/REST-API-GO/internal/controllers.PostConsumption (4 handlers)
 ```
 
 Login / Signup 
