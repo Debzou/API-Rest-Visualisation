@@ -1,8 +1,8 @@
 # REST-API-GO
 
 The security of the api is based on Gin-JWT.
-
-This API allows the visualization of energy consumption on a map
+The connector of cozy sends the doctype information to the API.
+Then this API allows the visualization of energy consumption on a map
 
 # Launch
 
