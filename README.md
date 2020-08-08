@@ -1,8 +1,10 @@
 # API-Rest-Visualisation
 
 The security of the api is based on Gin-JWT.
-The connector of cozy sends the doctype information to the API.
-Then this API allows the visualization of energy consumption on a map
+
+The connector of cozy sends the doctype information to the API. https://github.com/Debzou/cozy-konnector-output
+
+Then this API allows the visualization of energy consumption on a map.
 
 # Launch
 
