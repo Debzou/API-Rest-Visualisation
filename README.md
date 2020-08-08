@@ -82,6 +82,29 @@ Login / Signup
 ```
 ## Exemple POST http/Curl
 
+### POST /signup
+
+```http
+POST /signup HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "username" : "debzou",
+    "password" : "debzou",
+}
+```
+Using Curl
+
+```sh
+curl --location --request POST 'localhost:8080/signup' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username" : "debzou",
+    "password" : "debzou",
+}'
+```
+
 ### POST /login
 
 ```http
@@ -139,25 +162,4 @@ curl --location --request POST 'localhost:8080/auth/consumption' \
 }'
 ```
 
-### POST /signup
 
-```http
-POST /signup HTTP/1.1
-Host: localhost:8080
-Content-Type: application/json
-
-{
-    "username" : "debzou",
-    "password" : "debzou",
-}
-```
-Using Curl
-
-```sh
-curl --location --request POST 'localhost:8080/signup' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "username" : "debzou",
-    "password" : "debzou",
-}'
-```
