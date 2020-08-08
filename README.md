@@ -80,7 +80,7 @@ Login / Signup
 [GIN-debug] POST   /signup                   --> github.com/Debzou/REST-API-GO/internal/controllers.CreateUser (3 handlers)
 [GIN-debug] POST   /login                    --> github.com/appleboy/gin-jwt/v2.(*GinJWTMiddleware).LoginHandler-fm (3 handlers)
 ```
-## Exemple POST http
+## Exemple POST http/Curl
 
 ### POST /login
 
