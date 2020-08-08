@@ -1,4 +1,4 @@
-# REST-API-GO
+# API-Rest-Visualisation
 
 The security of the api is based on Gin-JWT.
 The connector of cozy sends the doctype information to the API.
