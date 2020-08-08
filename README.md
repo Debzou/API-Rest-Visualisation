@@ -138,3 +138,26 @@ curl --location --request POST 'localhost:8080/auth/consumption' \
     "averageannualconsumption": 600.0
 }'
 ```
+
+### POST /signup
+
+```http
+POST /signup HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "username" : "debzou",
+    "password" : "debzou",
+}
+```
+Using Curl
+
+```sh
+curl --location --request POST 'localhost:8080/signup' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "username" : "debzou",
+    "password" : "debzou",
+}'
+```
