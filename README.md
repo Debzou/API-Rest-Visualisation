@@ -6,6 +6,22 @@ The connector of cozy sends the doctype information to the API. https://github.c
 
 Then this API allows the visualization of energy consumption on a map.
 
+```plantuml
+
+node "Serveur XXX" {
+  cozy - [Konnector écolyo]
+  [Api cartographie]
+}
+
+node "Vestibul" {
+[reverse proxy]
+}
+
+[Api cartographie] --> [reverse proxy] : http
+[reverse proxy] --> [Konnector écolyo] : https
+
+```
+
 # Launch
 
 ## Start API in container :whale:
